@@ -1,41 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager2 : MonoBehaviour
 {
-    public Text scoreText;
     private int score = 0;
-    private HashSet<GameObject> countedBasketballs = new HashSet<GameObject>();
+    public Text scoreText;
 
-    private void OnTriggerEnter(Collider other)
+    public void IncreaseScore()
     {
-        if (other.CompareTag("Basketball"))
-        {
-            GameObject basketball = other.gameObject;
-
-            if (!countedBasketballs.Contains(basketball))
-            {
-                countedBasketballs.Add(basketball);
-                score++;
-                UpdateScoreUI();
-            }
-        }
+        score++;
     }
 
-    private void UpdateScoreUI()
+    public void ResetScore()
+    {
+        score = 0;
+    }
+
+    public void UpdateScoreUI()
     {
         if (scoreText != null)
         {
             scoreText.text = "Score: " + score.ToString();
         }
-    }
-
-    public void ResetScore()
-    {
-        countedBasketballs.Clear(); // Clear the set to allow counting basketballs again
-        score = 0;
-        UpdateScoreUI();
     }
 }

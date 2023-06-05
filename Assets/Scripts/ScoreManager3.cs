@@ -1,41 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScoreManager3 : MonoBehaviour
 {
-    public Text scoreText;
-    private int score = 0;
-    private HashSet<GameObject> countedBasketballs = new HashSet<GameObject>();
+    public int Score { get; set; } // Public property to access and modify the score
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Basketball"))
+        if (collision.gameObject.CompareTag("Target"))
         {
-            GameObject basketball = other.gameObject;
-
-            if (!countedBasketballs.Contains(basketball))
-            {
-                countedBasketballs.Add(basketball);
-                score++;
-                UpdateScoreUI();
-            }
+            Score++;
+            Debug.Log("Score: " + Score);
         }
-    }
-
-    private void UpdateScoreUI()
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + score.ToString();
-        }
-    }
-
-    public void ResetScore()
-    {
-        countedBasketballs.Clear(); // Clear the set to allow counting basketballs again
-        score = 0;
-        UpdateScoreUI();
     }
 }

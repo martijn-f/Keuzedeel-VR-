@@ -12,6 +12,9 @@ TagManager:
   - Cube
   - Ground
   - Basketball
+  - Bullet
+  - Trigger
+  - Target
   layers:
   - Default
   - TransparentFX
