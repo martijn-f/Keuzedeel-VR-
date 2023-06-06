@@ -2,14 +2,33 @@ using UnityEngine;
 
 public class ScoreManager3 : MonoBehaviour
 {
-    public int Score { get; set; } // Public property to access and modify the score
+    private int score = 0;
+    public TMPro.TextMeshProUGUI scoreText;
+
+    public int Score
+    {
+        get { return score; }
+        set { score = value; }
+    }
+
+    private void Start()
+    {
+        UpdateScoreText();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Target"))
+        if (collision.gameObject.CompareTag("Cube2"))
         {
-            Score++;
-            Debug.Log("Score: " + Score);
+            score++;
+            Debug.Log("Score: " + score);
+            UpdateScoreText();
+            Destroy(collision.gameObject);
         }
+    }
+
+    private void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
     }
 }
