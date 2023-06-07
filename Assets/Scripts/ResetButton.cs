@@ -9,7 +9,7 @@ public class ResetButton : MonoBehaviour
     public Button resetButton;
     public AudioClip buttonSound;
     private AudioSource audioSource;
-    private ScoreManager scoreManager;
+    private ScoreManager3 scoreManager;
 
     private void Start()
     {
@@ -26,8 +26,8 @@ public class ResetButton : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Find the ScoreManager in the scene
-        scoreManager = FindObjectOfType<ScoreManager>();
+        // Find the ScoreManager3 in the scene
+        scoreManager = FindObjectOfType<ScoreManager3>();
     }
 
     private void ResetCubePosition()
@@ -41,7 +41,7 @@ public class ResetButton : MonoBehaviour
             audioSource.PlayOneShot(buttonSound);
         }
 
-        // Reset the score by calling the ResetScore method in the ScoreManager
+        // Reset the score by calling the ResetScore method in the ScoreManager3
         if (scoreManager != null)
         {
             scoreManager.ResetScore();

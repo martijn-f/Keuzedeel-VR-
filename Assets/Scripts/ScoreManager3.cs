@@ -1,34 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager3 : MonoBehaviour
 {
+    public Text scoreText;
     private int score = 0;
-    public TMPro.TextMeshProUGUI scoreText;
+    private HashSet<GameObject> cubes = new HashSet<GameObject>();
 
-    public int Score
-    {
-        get { return score; }
-        set { score = value; }
-    }
-
-    private void Start()
-    {
-        UpdateScoreText();
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Cube2"))
         {
-            score++;
-            Debug.Log("Score: " + score);
-            UpdateScoreText();
-            Destroy(collision.gameObject);
+            GameObject cube = collision.gameObject;
+
+            if (!cubes.Contains(cube))
+            {
+                cubes.Add(cube);
+                score = cubes.Count;
+                UpdateScoreUI();
+            }
         }
     }
 
-    private void UpdateScoreText()
+    void UpdateScoreUI()
     {
-        scoreText.text = "Score: " + score;
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score.ToString();
+        }
+    }
+
+    public void ResetScore()
+    {
+        cubes.Clear();
+        score = 0;
+        UpdateScoreUI();
     }
 }

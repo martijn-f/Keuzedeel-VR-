@@ -11,7 +11,7 @@ public class GroundCollisionHandler3 : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Cube"))
+        if (collision.gameObject.CompareTag("Cube2"))
         {
             GameObject cube = collision.gameObject;
 
