@@ -8,17 +8,20 @@ public class FireBulletOnActivate : MonoBehaviour
     public GameObject bullet;
     public Transform spawnPoint;
     public float fireSpeed = 20;
-    void Start()
+    public AudioClip gunshotSound;
+    private AudioSource audioSource;
+
+    private void Start()
     {
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(FireBullet);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Get the AudioSource component or add a new one if none exists
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void FireBullet(ActivateEventArgs arg)
@@ -27,8 +30,11 @@ public class FireBulletOnActivate : MonoBehaviour
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
         Destroy(spawnedBullet, 5);
+
+        // Play the gunshot sound
+        if (gunshotSound != null)
+        {
+            audioSource.PlayOneShot(gunshotSound);
+        }
     }
-
-
-
 }
